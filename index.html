@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class = "container">    
+    </div>
+    <div class="page">
+        <form onsubmit="return validarCPF()" action="validation.php" method="POST" class="formLogin">
+            <h1>Login</h1>
+            <p>Digite os seus dados de acesso no campo abaixo.</p>
+            <label for="cpf">CPF:</label>
+            <input type="text"id="cpf" name="cpf" placeholder="Digite seu CPF" autofocus="true" required />
+            <input type="submit" name="acessar" value="Acessar" class="btn"/>
+        </form>
+    </div>
+    <script>
+        function validarCPF() {
+            var cpf = document.getElementById('cpf').value;
+            cpf = cpf.replace(/[^\d]+/g,''); 
+            if (cpf.length !== 11) {
+                alert("CPF inválido: deve conter 11 dígitos.");
+                return false;
+            }
+            if (/^(\d)\1+$/.test(cpf)) {
+                alert("CPF inválido: todos os dígitos são iguais.");
+                return false;
+            }
+            var soma = 0;
+            for (var i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            var resto = soma % 11;
+            var dv1 = resto < 2 ? 0 : 11 - resto;
+            soma = 0;
+            for (var i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = soma % 11;
+            var dv2 = resto < 2 ? 0 : 11 - resto;
+            if (dv1 !== parseInt(cpf.charAt(9)) || dv2 !== parseInt(cpf.charAt(10))) {
+                alert("CPF inválido");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
