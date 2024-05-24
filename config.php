@@ -1,6 +1,6 @@
 <?php
 
-$dbhost = "localhost:3307";
+$dbhost = "localhost";
 $dbusername = "root";
 $dbpassword = "";
 $dbname = "reservashb";
